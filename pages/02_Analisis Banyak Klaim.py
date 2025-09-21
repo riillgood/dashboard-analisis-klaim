@@ -18,7 +18,6 @@ data["tanggal_klaim_diajukan"] = pd.to_datetime(
 )
 
 # --- Sidebar Rentang Tanggal ---
-st.sidebar.markdown("### Rentang Tanggal Analisis")
 min_date = data["tanggal_klaim_diajukan"].min().date()
 #max_date = data["tanggal_klaim_diajukan"].max().date()
 default_dates = st.session_state.get("analysis_dates", (min_date, datetime.date.today()))
