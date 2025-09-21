@@ -24,7 +24,7 @@ min_date = data["tanggal_klaim_diajukan"].min().date()
 default_dates = st.session_state.get("analysis_dates", (min_date, datetime.date.today()))
 
 
-tanggal = st.sidebar.date_input(
+tanggal = st.date_input(
     "Masukkan tanggal yang akan dianalisis:",
     value=default_dates,
     min_value=min_date,
