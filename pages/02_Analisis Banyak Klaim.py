@@ -60,7 +60,7 @@ selected_tipe = tipe_list[idx_banyak]
 st.sidebar.markdown(f"### Analisis Banyak Klaim — {selected_tipe}")
 
 # --- Tombol untuk memicu analisis ---
-if st.button(f"Jalankan Analisis Pareto untuk {selected_tipe}"):
+if st.button(f"Jalankan Analisis Banyak Klaim untuk {selected_tipe}"):
     import rumus as r # <-- IMPORT DIPINDAHKAN KE DALAM TOMBOL
     
     with st.spinner("Sedang menjalankan analisis, mohon tunggu..."):
