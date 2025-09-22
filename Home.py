@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import rumus as r # Import rumus.py
+# import rumus as r # <-- BARIS INI DIHAPUS KARENA TIDAK DIGUNAKAN DI HALAMAN INI
 
 st.set_page_config(page_title="Estimasi Total Klaim BPJS", layout="wide")
 
@@ -38,8 +38,12 @@ uploaded_file = st.file_uploader("Upload file CSV", type="csv")
 
 if uploaded_file is not None:
     try:
-        # Membaca file CSV
-        data = pd.read_csv(uploaded_file)
+        # Membaca file CSV menggunakan @st.cache_data agar lebih efisien
+        @st.cache_data
+        def load_csv(file):
+            return pd.read_csv(file)
+        
+        data = load_csv(uploaded_file)
         
         # Validasi kolom yang diperlukan
         required_columns = {"tipe_klasifikasi", "lama_pengajuan_klaim", "besar_klaim"}
@@ -51,10 +55,8 @@ if uploaded_file is not None:
             st.success("File berhasil diunggah dan memenuhi syarat!")
             st.write("Pratinjau data:")
             st.dataframe(data.head())  # Menampilkan pratinjau data
+            st.session_state['uploaded_data'] = data
+            if st.button("Mulai Analisis"):
+                st.switch_page("pages/01_Analisis Deskriptif.py")
     except Exception as e:
         st.error(f"Terjadi kesalahan saat membaca file: {str(e)}")
-    st.session_state['uploaded_data'] = data
-
-    if st.button("Mulai Analisis"):
-        st.switch_page("pages/01_Analisis Deskriptif.py")
-        
